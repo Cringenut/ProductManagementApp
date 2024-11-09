@@ -1,14 +1,17 @@
+// MainPageComponent.js
 "use client"
 
 import { useState, useEffect } from "react";
 import TopMenuComponent from "@/app/components/TopMenuComponent";
 import ProductGrid from "@/app/components/ProductGridComponent";
+import ProductInfoComponent from "@/app/components/ProductInfoComponent";
 
 export default function MainPageComponent({ serverProducts }) {
     const [products, setProducts] = useState([]);
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [priceRange, setPriceRange] = useState({ min: 0, max: Infinity });
+    const [selectedProduct, setSelectedProduct] = useState(null);
 
     useEffect(() => {
         setProducts(serverProducts);
@@ -42,6 +45,14 @@ export default function MainPageComponent({ serverProducts }) {
         setFilteredProducts(updatedFilteredProducts);
     };
 
+    const handleInfoClick = (product) => {
+        setSelectedProduct(product);
+    };
+
+    const handleCloseInfo = () => {
+        setSelectedProduct(null);
+    };
+
     const categories = Array.from(new Set(serverProducts.map(product => product.category)));
 
     return(
@@ -52,7 +63,14 @@ export default function MainPageComponent({ serverProducts }) {
                 selectedCategory={selectedCategory}
                 categories={categories}
             />
-            <ProductGrid products={filteredProducts} onRemoveProduct={handleRemoveProduct} />
+            <ProductGrid
+                products={filteredProducts}
+                onRemoveProduct={handleRemoveProduct}
+                onInfoClick={handleInfoClick}
+            />
+            {selectedProduct && (
+                <ProductInfoComponent product={selectedProduct} onClose={handleCloseInfo} />
+            )}
         </>
     );
 }

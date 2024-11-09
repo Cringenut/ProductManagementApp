@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../styles/ProductCard.css';
 
-const ProductCard = ({ product, onRemoveProduct }) => {
+const ProductCard = ({ product, onRemoveProduct, onInfoClick }) => {
     return (
         <div className="product-card">
             <button className="remove-button" onClick={() => onRemoveProduct(product.id)}>
@@ -10,10 +10,10 @@ const ProductCard = ({ product, onRemoveProduct }) => {
             <div className="product-details">
                 <h3 className="product-name">{product.name}</h3>
                 <p className="product-category">Category: {product.category}</p>
-                <p className="product-amount">Amount: {product.name}</p>
+                <p className="product-amount">Amount: {product.amount}</p>
                 <p className="product-price">Price per unit: ${product.price_per_unit}</p>
             </div>
-            <button className="info-button">
+            <button className="info-button" onClick={() => onInfoClick(product)}>
                 More Info
             </button>
         </div>

@@ -5,105 +5,135 @@
       "name": "Hammer",
       "category": "Tools",
       "amount": 50,
-      "price_per_unit": 12.99
+      "price_per_unit": 12.99,
+      "description": "A durable hammer suitable for various construction tasks.",
+      "supplier": "ABC Tools Co."
     },
     {
       "id": 2,
       "name": "Electric Drill",
       "category": "Power Tools",
       "amount": 30,
-      "price_per_unit": 79.99
+      "price_per_unit": 79.99,
+      "description": "High-powered drill with variable speed settings.",
+      "supplier": "PowerMax Industries"
     },
     {
       "id": 3,
       "name": "Wood Screws",
       "category": "Hardware",
       "amount": 2000,
-      "price_per_unit": 0.05
+      "price_per_unit": 0.05,
+      "description": "Pack of 2000 wood screws, 2 inches in length.",
+      "supplier": "FastenRight Ltd."
     },
     {
       "id": 4,
       "name": "2x4 Lumber",
       "category": "Building Materials",
       "amount": 100,
-      "price_per_unit": 3.49
+      "price_per_unit": 3.49,
+      "description": "Standard 2x4 lumber for framing and construction.",
+      "supplier": "LumberYard Inc."
     },
     {
       "id": 5,
       "name": "Paint - White",
       "category": "Paint",
       "amount": 60,
-      "price_per_unit": 25.99
+      "price_per_unit": 25.99,
+      "description": "Premium white paint, suitable for indoor and outdoor use.",
+      "supplier": "PaintMaster Co."
     },
     {
       "id": 6,
       "name": "Ceiling Fan",
       "category": "Electrical",
       "amount": 20,
-      "price_per_unit": 129.99
+      "price_per_unit": 129.99,
+      "description": "Energy-efficient ceiling fan with remote control.",
+      "supplier": "CoolAir Corp."
     },
     {
       "id": 7,
       "name": "Outdoor LED Light",
       "category": "Lighting",
       "amount": 40,
-      "price_per_unit": 24.99
+      "price_per_unit": 24.99,
+      "description": "Weather-resistant LED light for outdoor areas.",
+      "supplier": "BrightWay Lighting"
     },
     {
       "id": 8,
       "name": "Ceramic Tile",
       "category": "Flooring",
       "amount": 300,
-      "price_per_unit": 1.99
+      "price_per_unit": 1.99,
+      "description": "Durable ceramic tiles suitable for floors and walls.",
+      "supplier": "TileWorks Ltd."
     },
     {
       "id": 9,
       "name": "Garden Hose",
       "category": "Garden",
       "amount": 75,
-      "price_per_unit": 14.99
+      "price_per_unit": 14.99,
+      "description": "Flexible garden hose with brass fittings, 50 feet long.",
+      "supplier": "GreenGarden Supplies"
     },
     {
       "id": 10,
       "name": "Circular Saw",
       "category": "Power Tools",
       "amount": 15,
-      "price_per_unit": 99.99
+      "price_per_unit": 99.99,
+      "description": "High-speed circular saw with carbide blade.",
+      "supplier": "CutMaster Pro"
     },
     {
       "id": 11,
       "name": "PVC Pipe - 1 inch",
       "category": "Plumbing",
       "amount": 120,
-      "price_per_unit": 4.59
+      "price_per_unit": 4.59,
+      "description": "Durable 1-inch PVC pipe for plumbing projects.",
+      "supplier": "PipeLine Supplies"
     },
     {
       "id": 12,
       "name": "Toilet Seat",
       "category": "Bathroom",
       "amount": 45,
-      "price_per_unit": 19.99
+      "price_per_unit": 19.99,
+      "description": "Standard white toilet seat with easy-install hinges.",
+      "supplier": "ComfortBathroom Co."
     },
     {
       "id": 13,
       "name": "Air Filter",
       "category": "HVAC",
       "amount": 85,
-      "price_per_unit": 8.99
+      "price_per_unit": 8.99,
+      "description": "HEPA air filter suitable for home HVAC systems.",
+      "supplier": "PureAir Filters"
     },
     {
       "id": 14,
       "name": "Insulation Roll",
       "category": "Building Materials",
       "amount": 30,
-      "price_per_unit": 59.99
+      "price_per_unit": 59.99,
+      "description": "High-quality insulation roll for energy efficiency.",
+      "supplier": "WarmHome Solutions"
     },
     {
       "id": 15,
       "name": "Grass Seed",
       "category": "Garden",
       "amount": 100,
-      "price_per_unit": 12.49
+      "price_per_unit": 12.49,
+      "description": "Premium grass seed for lush, green lawns.",
+      "supplier": "NatureGreen Seed Co."
     }
   ]
 }
