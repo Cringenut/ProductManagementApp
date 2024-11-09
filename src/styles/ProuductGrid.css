@@ -1,0 +1,45 @@
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 16px;
+    padding: 16px;
+}
+
+/* PriceBrackets.css */
+.price-brackets {
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+.price-brackets h2 {
+    margin: 0 0 10px;
+    font-size: 1.2rem;
+}
+
+.brackets-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.bracket-button {
+    padding: 10px 15px;
+    background-color: #555;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+}
+
+.bracket-button:hover {
+    background-color: #777;
+}
+
+.bracket-button.selected {
+    background-color: #ff5733;
+}
+
