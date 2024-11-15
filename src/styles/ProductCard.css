@@ -56,6 +56,7 @@
 }
 
 .info-button {
+    margin: 2;
     background-color: #1976d2;
     color: #fff;
     padding: 10px;

@@ -1,9 +1,7 @@
-"use client"
-
-import '../../styles/ProuductGrid.css';// components/TopMenu.js
 import React, { useState } from 'react';
 
-const TopMenuComponent = ({ onFilter, onCategoryFilter, selectedCategory, categories }) => {
+// TopMenuComponent.js
+const TopMenuComponent = ({ onFilter, onCategoryFilter, selectedCategory, categories, onAddClick }) => {
     const [minPrice, setMinPrice] = useState('');
     const [maxPrice, setMaxPrice] = useState('');
 
@@ -50,6 +48,8 @@ const TopMenuComponent = ({ onFilter, onCategoryFilter, selectedCategory, catego
                 ))}
             </select>
 
+            <button className="add-button" onClick={onAddClick}>Add</button>
+
             <style jsx>{`
                 .top-menu {
                     display: flex;
@@ -68,6 +68,22 @@ const TopMenuComponent = ({ onFilter, onCategoryFilter, selectedCategory, catego
                     padding: 5px;
                     border: 1px solid #ccc;
                     border-radius: 4px;
+                }
+
+                .add-button {
+                    background-color: #4285f4;
+                    color: white;
+                    border: none;
+                    padding: 10px 20px;
+                    font-size: 14px;
+                    font-weight: bold;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    margin-left: auto;
+                }
+
+                .add-button:hover {
+                    background-color: #357ae8;
                 }
             `}</style>
         </div>

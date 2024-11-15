@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../styles/ProductCard.css';
 
-const ProductCard = ({ product, onRemoveProduct, onInfoClick }) => {
+const ProductCard = ({ product, onRemoveProduct, onInfoClick, onEditClick }) => {
     return (
         <div className="product-card">
             <button className="remove-button" onClick={() => onRemoveProduct(product.id)}>
@@ -15,6 +15,9 @@ const ProductCard = ({ product, onRemoveProduct, onInfoClick }) => {
             </div>
             <button className="info-button" onClick={() => onInfoClick(product)}>
                 More Info
+            </button>
+            <button className="info-button" onClick={() => onEditClick(product)}>
+                Edit
             </button>
         </div>
     );
