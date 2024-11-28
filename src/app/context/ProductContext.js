@@ -127,6 +127,20 @@ export const ProductProvider = ({ children }) => {
         handleCategoryFilter(category);
     };
 
+    useEffect(() => {
+        console.log("FILTERED")
+        const filtered = products.filter(product => {
+            const matchesCategory = selectedCategory ? product.category === selectedCategory : true;
+            const matchesPrice =
+                product.price_per_unit >= priceRange.min &&
+                product.price_per_unit <= priceRange.max;
+
+            return matchesCategory && matchesPrice;
+        });
+
+        setFilteredProducts(filtered);
+    }, [products, selectedCategory, priceRange]);
+
     const value = {
         products,
         setProducts,
