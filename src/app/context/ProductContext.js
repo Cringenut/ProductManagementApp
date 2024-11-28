@@ -4,9 +4,9 @@ import React, {createContext, useState, useContext, useEffect} from "react";
 
 const ProductContext = createContext(null);
 
-export const ProductProvider = ({ serverProducts, children }) => {
-    const [products, setProducts] = useState(serverProducts);
-    const [categories, setCategories] = useState(Array.from(new Set(products.map(product => product.category))));
+export const ProductProvider = ({ children }) => {
+    const [products, setProducts] = useState([]);
+    const [categories, setCategories] = useState([]);
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [priceRange, setPriceRange] = useState({ min: 0, max: Infinity });
@@ -15,6 +15,29 @@ export const ProductProvider = ({ serverProducts, children }) => {
     const [isEditFormVisible, setIsEditFormVisible] = useState(false); // Form visibility state
     const [minPrice, setMinPrice] = useState("");
     const [maxPrice, setMaxPrice] = useState("");
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                // Fetch the JSON file from the public folder
+                const response = await fetch('/data/products.json');
+                const productsData = await response.json();
+
+                setProducts(productsData.shop_items);
+                setFilteredProducts(productsData.shop_items);
+
+                // Extract unique categories
+                const uniqueCategories = Array.from(
+                    new Set(productsData.shop_items.map(product => product.category))
+                );
+                setCategories(uniqueCategories);
+            } catch (error) {
+                console.error('Failed to fetch products:', error);
+            }
+        };
+
+        fetchProducts();
+    }, []);
 
     const handleAddProduct = (newProduct) => {
         const updatedProducts = [...products, newProduct];
@@ -28,11 +51,6 @@ export const ProductProvider = ({ serverProducts, children }) => {
         );
         setFilteredProducts(filtered);
     };
-
-    useEffect(() => {
-        setProducts(serverProducts);
-        setFilteredProducts(serverProducts);
-    }, [serverProducts]);
 
     const handlePriceFilter = ({ min = 0, max = Infinity }) => {
         setPriceRange({ min, max });
