@@ -40,7 +40,7 @@ const TopMenuComponent = () => {
                 ))}
             </select>
 
-
+            <button className="add-button" onClick={() => setIsFormVisible(true)}>Add</button>
 
             <style jsx>{`
                 .top-menu {

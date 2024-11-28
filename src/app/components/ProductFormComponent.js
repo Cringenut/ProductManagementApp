@@ -2,8 +2,15 @@
 import * as yup from 'yup';
 import {Field, Form, Formik} from "formik";
 import "../../styles/ProductForm.css"
+import {useProductContext} from "@/app/context/ProductContext";
 
-function ProductFormComponent({ onClose, onAddProduct, categories }) {
+function ProductFormComponent({ onClose }) {
+    const {
+        handleAddProduct,
+        categories
+    } = useProductContext();
+
+
     const schema = yup.object().shape({
         name: yup
             .string()
@@ -47,7 +54,7 @@ function ProductFormComponent({ onClose, onAddProduct, categories }) {
                             id: Date.now(), // Generate a unique ID
                             ...formData,
                         };
-                        onAddProduct(newProduct); // Add the new product
+                        handleAddProduct(newProduct); // Add the new product
                         console.log(newProduct);
                         resetForm(); // Reset the form
                         onClose(); // Close the form
