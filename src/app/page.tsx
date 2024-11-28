@@ -4,6 +4,8 @@ import TopMenuComponent from "@/app/components/TopMenuComponent";
 import path from "node:path";
 import * as fs from "node:fs";
 import MainPageComponent from "@/app/components/MainPageComponent";
+import {ProductProvider} from "@/app/context/ProductContext";
+import React from "react";
 
 async function fetchProducts() {
     const filePath = path.join(process.cwd(), 'src', 'data', 'products.json');
@@ -18,7 +20,9 @@ export default async function Home() {
     return (
         <html>
         <body>
-        <MainPageComponent serverProducts={products} />
+        <ProductProvider serverProducts={products}>
+            <MainPageComponent serverProducts={products} />
+        </ProductProvider>
         </body>
         </html>
     );

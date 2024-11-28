@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import ProductCard from "./ProductCardComponent";
 import '../../styles/ProuductGrid.css';
+import {ProductProvider, useProductContext} from "@/app/context/ProductContext";
 
 
-const ProductGrid = ({ products, onRemoveProduct, onInfoClick, onEditClick }) => {
+const ProductGrid = ({ onRemoveProduct, onInfoClick, onEditClick }) => {
+    const { products, setProducts } = useProductContext();
+
     return (
         <div className="product-grid">
             {
