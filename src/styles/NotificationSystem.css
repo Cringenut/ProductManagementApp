@@ -1,0 +1,40 @@
+.notification-container {
+    position: fixed;
+    bottom: 20px; /* Position notifications near the top of the screen */
+    right: 20px; /* Align notifications to the right */
+    z-index: 1000; /* Ensure it appears above other content */
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Space between notifications */
+    max-width: 300px; /* Limit the width of the notification container */
+}
+
+.notification {
+    background-color: #1976d2; /* Notification background color */
+    color: #fff; /* Text color */
+    padding: 10px 20px; /* Spacing inside the notification */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+    font-family: Arial, sans-serif; /* Consistent font */
+    font-size: 0.9rem; /* Adjusted font size */
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth animations */
+    opacity: 1; /* Initially fully visible */
+    transform: translateY(0); /* No vertical offset initially */
+}
+
+.notification-exit {
+    opacity: 0; /* Fade out effect */
+    transform: translateY(-20px); /* Slide upwards when exiting */
+}
+
+.notification.warning {
+    background-color: #ff9800; /* Orange background for warnings */
+}
+
+.notification.error {
+    background-color: #f44336; /* Red background for errors */
+}
+
+.notification.success {
+    background-color: #4caf50; /* Green background for success messages */
+}

@@ -1,6 +1,7 @@
 "use client";
 
 import React, {createContext, useState, useContext, useEffect} from "react";
+import {useNotificationContext} from "@/app/context/NotificationContext";
 
 const ProductContext = createContext(null);
 
@@ -15,6 +16,7 @@ export const ProductProvider = ({ children }) => {
     const [isEditFormVisible, setIsEditFormVisible] = useState(false); // Form visibility state
     const [minPrice, setMinPrice] = useState("");
     const [maxPrice, setMaxPrice] = useState("");
+    const { addNotification } = useNotificationContext();
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -50,6 +52,8 @@ export const ProductProvider = ({ children }) => {
             (selectedCategory ? product.category === selectedCategory : true)
         );
         setFilteredProducts(filtered);
+
+        addNotification(`Product "${newProduct.name}" added successfully!`);
     };
 
     const handlePriceFilter = ({ min = 0, max = Infinity }) => {
@@ -102,6 +106,7 @@ export const ProductProvider = ({ children }) => {
         setFilteredProducts(filtered);
 
         setIsEditFormVisible(false);
+        addNotification(`Product "${updatedProduct.name}" updated successfully!`);
     };
 
     const handleEditClick = (product) => {
