@@ -4,21 +4,14 @@ import '../../styles/ProuductGrid.css';
 import {ProductProvider, useProductContext} from "@/app/context/ProductContext";
 
 
-const ProductGrid = ({ onRemoveProduct, onInfoClick, onEditClick }) => {
-    const { products, setProducts } = useProductContext();
+const ProductGrid = () => {
+    const { filteredProducts } = useProductContext();
 
     return (
         <div className="product-grid">
-            {
-                products.map((product, index) => (
-                    <ProductCard key={index}
-                                 product={product}
-                                 onRemoveProduct={onRemoveProduct}
-                                 onInfoClick={onInfoClick}
-                                 onEditClick={onEditClick}
-                    />
-                ))
-            }
+            {filteredProducts.map((product, index) => (
+                <ProductCard key={index} product={product} />
+            ))}
         </div>
     );
 };

@@ -1,25 +1,17 @@
 import React, { useState } from 'react';
+import {useProductContext} from "@/app/context/ProductContext";
 
 // TopMenuComponent.js
-const TopMenuComponent = ({ onFilter, onCategoryFilter, selectedCategory, categories, onAddClick }) => {
-    const [minPrice, setMinPrice] = useState('');
-    const [maxPrice, setMaxPrice] = useState('');
-
-    const handlePriceChange = (e, type) => {
-        const value = e.target.value;
-        if (type === 'min') setMinPrice(value);
-        if (type === 'max') setMaxPrice(value);
-
-        onFilter({
-            min: parseFloat(type === 'min' ? value : minPrice) || 0,
-            max: parseFloat(type === 'max' ? value : maxPrice) || Infinity,
-        });
-    };
-
-    const handleCategoryChange = (e) => {
-        const category = e.target.value;
-        onCategoryFilter(category);
-    };
+const TopMenuComponent = () => {
+    const {
+        handlePriceChange,
+        handleCategoryChange,
+        setIsFormVisible,
+        selectedCategory,
+        categories,
+        minPrice,
+        maxPrice,
+    } = useProductContext();
 
     return (
         <div className="top-menu">
@@ -48,7 +40,7 @@ const TopMenuComponent = ({ onFilter, onCategoryFilter, selectedCategory, catego
                 ))}
             </select>
 
-            <button className="add-button" onClick={onAddClick}>Add</button>
+
 
             <style jsx>{`
                 .top-menu {

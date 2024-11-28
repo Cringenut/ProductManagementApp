@@ -1,10 +1,13 @@
 import React from 'react';
 import '../../styles/ProductCard.css';
+import {useProductContext} from "@/app/context/ProductContext";
 
-const ProductCard = ({ product, onRemoveProduct, onInfoClick, onEditClick }) => {
+const ProductCard = ({ product }) => {
+    const { handleRemoveProduct, handleInfoClick, handleEditClick } = useProductContext();
+
     return (
         <div className="product-card">
-            <button className="remove-button" onClick={() => onRemoveProduct(product.id)}>
+            <button className="remove-button" onClick={() => handleRemoveProduct(product.id)}>
                 x
             </button>
             <div className="product-details">
@@ -13,10 +16,10 @@ const ProductCard = ({ product, onRemoveProduct, onInfoClick, onEditClick }) => 
                 <p className="product-amount">Amount: {product.amount}</p>
                 <p className="product-price">Price per unit: ${product.price_per_unit}</p>
             </div>
-            <button className="info-button" onClick={() => onInfoClick(product)}>
+            <button className="info-button" onClick={() => handleInfoClick(product)}>
                 More Info
             </button>
-            <button className="info-button" onClick={() => onEditClick(product)}>
+            <button className="info-button" onClick={() => handleEditClick(product)}>
                 Edit
             </button>
         </div>
