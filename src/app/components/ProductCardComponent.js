@@ -13,8 +13,8 @@ const ProductCard = ({ product }) => {
             <div className="product-details">
                 <h3 className="product-name">{product.name}</h3>
                 <p className="product-category">Category: {product.category}</p>
-                <p className="product-amount">Amount: {product.amount}</p>
-                <p className="product-price">Price per unit: ${product.price_per_unit}</p>
+                <p className="product-amount">Amount: {product.quantity}</p>
+                <p className="product-price">Price per unit: ${product.unitPrice}</p>
             </div>
             <button className="info-button" onClick={() => handleInfoClick(product)}>
                 More Info

@@ -2,6 +2,7 @@
 
 import React, {createContext, useState, useContext, useEffect} from "react";
 import {useNotificationContext} from "@/app/context/NotificationContext";
+import {fetchProducts} from "@/app/backend/ProductFetcherComponent";
 
 const ProductContext = createContext(null);
 
@@ -19,26 +20,25 @@ export const ProductProvider = ({ children }) => {
     const { addNotification } = useNotificationContext();
 
     useEffect(() => {
-        const fetchProducts = async () => {
-            try {
-                // Fetch the JSON file from the public folder
-                const response = await fetch('/data/products.json');
-                const productsData = await response.json();
+        const fetchAndSetProducts = async () => {
+            const fetchedProducts = await fetchProducts(); // Use the imported fetcher function
+            console.table(fetchedProducts)
 
-                setProducts(productsData.shop_items);
-                setFilteredProducts(productsData.shop_items);
+            if (fetchedProducts) {
+                setProducts(fetchedProducts);
+                setFilteredProducts(fetchedProducts);
 
                 // Extract unique categories
                 const uniqueCategories = Array.from(
-                    new Set(productsData.shop_items.map(product => product.category))
+                    new Set(fetchedProducts.map(product => product.category))
                 );
                 setCategories(uniqueCategories);
-            } catch (error) {
-                console.error('Failed to fetch products:', error);
+            } else {
+                console.error("No shop items found in the fetched data.");
             }
         };
 
-        fetchProducts();
+        fetchAndSetProducts();
     }, []);
 
     const handleAddProduct = (newProduct) => {
@@ -47,8 +47,8 @@ export const ProductProvider = ({ children }) => {
 
         // Reapply filtering if any filters are active
         const filtered = updatedProducts.filter(product =>
-            product.price_per_unit >= priceRange.min &&
-            product.price_per_unit <= priceRange.max &&
+            product.unitPrice >= priceRange.min &&
+            product.unitPrice <= priceRange.max &&
             (selectedCategory ? product.category === selectedCategory : true)
         );
         setFilteredProducts(filtered);
@@ -59,8 +59,8 @@ export const ProductProvider = ({ children }) => {
     const handlePriceFilter = ({ min = 0, max = Infinity }) => {
         setPriceRange({ min, max });
         const filtered = products.filter(product =>
-            product.price_per_unit >= min &&
-            product.price_per_unit <= max &&
+            product.unitPrice >= min &&
+            product.unitPrice <= max &&
             (selectedCategory ? product.category === selectedCategory : true)
         );
         setFilteredProducts(filtered);
@@ -71,8 +71,8 @@ export const ProductProvider = ({ children }) => {
         const { min, max } = priceRange;
         const filtered = products.filter(product =>
             (!category || product.category === category) &&
-            product.price_per_unit >= min &&
-            product.price_per_unit <= max
+            product.unitPrice >= min &&
+            product.unitPrice <= max
         );
         setFilteredProducts(filtered);
     };
@@ -137,8 +137,8 @@ export const ProductProvider = ({ children }) => {
         const filtered = products.filter(product => {
             const matchesCategory = selectedCategory ? product.category === selectedCategory : true;
             const matchesPrice =
-                product.price_per_unit >= priceRange.min &&
-                product.price_per_unit <= priceRange.max;
+                product.unitPrice >= priceRange.min &&
+                product.unitPrice <= priceRange.max;
 
             return matchesCategory && matchesPrice;
         });

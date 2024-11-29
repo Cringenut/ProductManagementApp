@@ -5,8 +5,8 @@ import "../../styles/ProductForm.css";
 function ProductEditComponent({ product, onEdit, onClose }) {
     const [name, setName] = useState(product.name);
     const [category, setCategory] = useState(product.category);
-    const [amount, setAmount] = useState(product.amount);
-    const [price, setPrice] = useState(product.price_per_unit);
+    const [amount, setAmount] = useState(product.quantity);
+    const [price, setPrice] = useState(product.unitPrice);
     const [supplier, setSupplier] = useState(product.supplier);
     const [errors, setErrors] = useState({});
 
@@ -21,7 +21,7 @@ function ProductEditComponent({ product, onEdit, onClose }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const updatedProduct = { id: product.id, name, category, amount, price_per_unit: price, supplier };
+        const updatedProduct = { id: product.id, name, category, amount, unitPrice: price, supplier };
 
         try {
             console.log(schema.validate(updatedProduct))
@@ -62,7 +62,7 @@ function ProductEditComponent({ product, onEdit, onClose }) {
                         onChange={(e) => setAmount(Number(e.target.value))}
                         placeholder="Amount"
                     />
-                    {errors.amount && <div>{errors.amount}</div>}
+                    {errors.quantity && <div>{errors.quantity}</div>}
 
                     <input
                         type="number"

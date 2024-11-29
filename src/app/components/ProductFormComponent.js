@@ -26,7 +26,7 @@ function ProductFormComponent({ onClose }) {
             .positive("Amount must be greater than 0")
             .integer("Amount must be an integer")
             .required("Amount is required"),
-        price_per_unit: yup
+        unitPrice: yup
             .number()
             .positive("Price per unit must be greater than 0")
             .required("Price per unit is required"),
@@ -45,7 +45,7 @@ function ProductFormComponent({ onClose }) {
                         name: "",
                         category: "",
                         amount: 1,
-                        price_per_unit: 0.01,
+                        unitPrice: 0.01,
                         supplier: "",
                     }}
                     validationSchema={schema} // Use the schema here
@@ -69,15 +69,15 @@ function ProductFormComponent({ onClose }) {
                             {errors.category && touched.category && <div>{errors.category}</div>}
 
                             <Field type="number" name="amount" placeholder="Enter amount" />
-                            {errors.amount && touched.amount && <div>{errors.amount}</div>}
+                            {errors.quantity && touched.quantity && <div>{errors.quantity}</div>}
 
                             <Field
                                 type="number"
                                 step="0.01"
-                                name="price_per_unit"
+                                name="unitPrice"
                                 placeholder="Enter price per unit"
                             />
-                            {errors.price_per_unit && touched.price_per_unit && <div>{errors.price_per_unit}</div>}
+                            {errors.unitPrice && touched.unitPrice && <div>{errors.unitPrice}</div>}
 
                             <Field type="text" name="supplier" placeholder="Enter supplier" />
                             {errors.supplier && touched.supplier && <div>{errors.supplier}</div>}
