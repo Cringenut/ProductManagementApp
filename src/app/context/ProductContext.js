@@ -2,7 +2,7 @@
 
 import React, {createContext, useState, useContext, useEffect} from "react";
 import {useNotificationContext} from "@/app/context/NotificationContext";
-import {fetchProducts} from "@/app/backend/ProductFetcherComponent";
+import ProductFetcher, {fetchProducts} from "@/app/backend/ProductFetcherComponent";
 
 const ProductContext = createContext(null);
 
@@ -18,28 +18,6 @@ export const ProductProvider = ({ children }) => {
     const [minPrice, setMinPrice] = useState("");
     const [maxPrice, setMaxPrice] = useState("");
     const { addNotification } = useNotificationContext();
-
-    useEffect(() => {
-        const fetchAndSetProducts = async () => {
-            const fetchedProducts = await fetchProducts(); // Use the imported fetcher function
-            console.table(fetchedProducts)
-
-            if (fetchedProducts) {
-                setProducts(fetchedProducts);
-                setFilteredProducts(fetchedProducts);
-
-                // Extract unique categories
-                const uniqueCategories = Array.from(
-                    new Set(fetchedProducts.map(product => product.category))
-                );
-                setCategories(uniqueCategories);
-            } else {
-                console.error("No shop items found in the fetched data.");
-            }
-        };
-
-        fetchAndSetProducts();
-    }, []);
 
     const handleAddProduct = (newProduct) => {
         const updatedProducts = [...products, newProduct];
