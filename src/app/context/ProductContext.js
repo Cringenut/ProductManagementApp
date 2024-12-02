@@ -17,22 +17,8 @@ export const ProductProvider = ({ children }) => {
     const [isEditFormVisible, setIsEditFormVisible] = useState(false); // Form visibility state
     const [minPrice, setMinPrice] = useState("");
     const [maxPrice, setMaxPrice] = useState("");
+    const [handleAddProduct, setHandleAddProduct] = useState(false);
     const { addNotification } = useNotificationContext();
-
-    const handleAddProduct = (newProduct) => {
-        const updatedProducts = [...products, newProduct];
-        setProducts(updatedProducts);
-
-        // Reapply filtering if any filters are active
-        const filtered = updatedProducts.filter(product =>
-            product.unitPrice >= priceRange.min &&
-            product.unitPrice <= priceRange.max &&
-            (selectedCategory ? product.category === selectedCategory : true)
-        );
-        setFilteredProducts(filtered);
-
-        addNotification(`Product "${newProduct.name}" added successfully!`);
-    };
 
     const handlePriceFilter = ({ min = 0, max = Infinity }) => {
         setPriceRange({ min, max });
@@ -142,6 +128,7 @@ export const ProductProvider = ({ children }) => {
         isEditFormVisible,
         setIsEditFormVisible,
         handleAddProduct,
+        setHandleAddProduct,
         handlePriceFilter,
         handleCategoryFilter,
         handleRemoveProduct,

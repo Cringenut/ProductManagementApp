@@ -1,33 +1,35 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from 'react';
-import {useProductContext} from "@/app/context/ProductContext";
+import { useState, useEffect } from "react";
+import { useProductContext } from "@/app/context/ProductContext";
+
+export const fetchProducts = async () => {
+    const response = await fetch("http://localhost:3030/products");
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+};
 
 export default function ProductFetcher() {
     const {
         setProducts,
         setCategories,
         setFilteredProducts,
-        products,
-        categories,
-        filteredProducts,
     } = useProductContext();
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchProducts = async () => {
+        const loadProducts = async () => {
             setLoading(true);
             setError(null);
 
             try {
-                const response = await fetch('http://localhost:3030/products'); // Adjust API route if necessary
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                const data = await response.json();
+                const data = await fetchProducts();
                 setProducts(data);
                 setFilteredProducts(data);
 
@@ -41,7 +43,7 @@ export default function ProductFetcher() {
             }
         };
 
-        fetchProducts();
+        loadProducts();
     }, [setProducts, setCategories, setFilteredProducts]);
 
     return (
