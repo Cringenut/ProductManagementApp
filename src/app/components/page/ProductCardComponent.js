@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/ProductCard.css';
+import '../../../styles/ProductCard.css';
 import {useProductContext} from "@/app/context/ProductContext";
 
 const ProductCard = ({ product }) => {

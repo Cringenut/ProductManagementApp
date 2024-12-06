@@ -1,8 +1,8 @@
 "use client"
 
 import React, {useEffect, useState} from "react";
-import {useNotificationContext} from "../context/NotificationContext";
-import "../../styles/NotificationSystem.css"
+import {useNotificationContext} from "../../context/NotificationContext";
+import "../../../styles/NotificationSystem.css"
 
 const NotificationSystem = () => {
     const { notifications, removeNotification } = useNotificationContext();

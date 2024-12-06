@@ -1,6 +1,6 @@
 import React, {useContext, useLayoutEffect, useRef} from 'react';
 import ProductCard from "./ProductCardComponent";
-import '../../styles/ProuductGrid.css';
+import '../../../styles/ProuductGrid.css';
 import {ProductProvider, useProductContext} from "@/app/context/ProductContext";
 
 

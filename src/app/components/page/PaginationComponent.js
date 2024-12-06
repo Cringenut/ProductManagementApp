@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../../styles/ProuductGrid.css';
+import '../../../styles/ProuductGrid.css';
 
 const PaginationComponent = ({ data, itemsPerPage }) => {
     const [currentPage, setCurrentPage] = useState(1);

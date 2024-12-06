@@ -1,7 +1,7 @@
 // ProductFormComponent.js
 import * as yup from 'yup';
 import {Field, Form, Formik} from "formik";
-import "../../styles/ProductForm.css"
+import "../../../styles/ProductForm.css"
 import {useProductContext} from "@/app/context/ProductContext";
 
 function ProductFormComponent({ onClose }) {

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import '../../styles/ProductInfo.css';
+import '../../../styles/ProductInfo.css';
 
 const ProductInfoComponent = ({ product, onClose }) => {
     useEffect(() => {

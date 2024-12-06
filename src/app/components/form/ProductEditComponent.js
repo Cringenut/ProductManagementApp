@@ -1,7 +1,7 @@
 import React from "react";
 import * as yup from "yup";
 import { Formik, Form, Field } from "formik";
-import "../../styles/ProductForm.css";
+import "../../../styles/ProductForm.css";
 import { useProductContext } from "@/app/context/ProductContext";
 
 function ProductEditComponent({ onClose }) {
