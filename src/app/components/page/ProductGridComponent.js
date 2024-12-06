@@ -1,18 +1,24 @@
-import React, {useContext, useLayoutEffect, useRef} from 'react';
+import React from 'react';
+import { FixedSizeList as List } from 'react-window';
 import ProductCard from "./ProductCardComponent";
 import '../../../styles/ProuductGrid.css';
-import {ProductProvider, useProductContext} from "@/app/context/ProductContext";
-
 
 const ProductGrid = ({ currentProducts }) => {
-    const gridRef = useRef(null);
+    const Row = ({ index, style }) => (
+        <div style={style}>
+            <ProductCard product={currentProducts[index]} />
+        </div>
+    );
 
     return (
-        <div className="product-grid" ref={gridRef}>
-            {currentProducts.slice().reverse().map((product, index) => (
-                <ProductCard key={index} product={product} />
-            ))}
-        </div>
+        <List
+            height={500}
+            itemCount={currentProducts.length}
+            itemSize={250}
+            width={'100%'}
+        >
+            {Row}
+        </List>
     );
 };
 

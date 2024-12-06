@@ -1,55 +1,53 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useProductContext } from "@/app/context/ProductContext";
+import { generateFakeProducts } from "@/app/backend/ProductsFaker";
 
 export const fetchProducts = async () => {
-    const response = await fetch("http://localhost:3030/products");
-    if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-    }
+    try {
+        // Attempt to fetch from the API
+        const response = await fetch("http://localhost:3030/products");
+        if (!response.ok) throw new Error(`API error: ${response.status}`);
+        const data = await response.json();
+        // Save to localStorage and return data
+        localStorage.setItem("products", JSON.stringify(data));
+        return data;
+    } catch (error) {
+        console.warn("API unavailable. Using localStorage or generating fake products. Error:", error.message);
 
-    const data = await response.json();
-    return data;
+        // Check localStorage
+        const storedProducts = localStorage.getItem("products");
+        if (storedProducts && JSON.parse(storedProducts).length > 0) {
+            console.log("Products fetched from localStorage:", JSON.parse(storedProducts));
+            return JSON.parse(storedProducts);
+        }
+
+        // Generate fake products as a fallback
+        const fakeProducts = generateFakeProducts(20); // Generate 20 products
+        localStorage.setItem("products", JSON.stringify(fakeProducts));
+        console.log("Generating and saving fake products:", fakeProducts);
+        return fakeProducts;
+    }
 };
 
-export default function ProductFetcher() {
-    const {
-        setProducts,
-        setCategories,
-        setFilteredProducts,
-    } = useProductContext();
 
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+export default function ProductFetcher() {
+    const { setProducts, setFilteredProducts, setCategories } = useProductContext();
 
     useEffect(() => {
         const loadProducts = async () => {
-            setLoading(true);
-            setError(null);
+            const products = await fetchProducts();
+            console.log("Products loaded: ", products)
+            setProducts(products);
+            setFilteredProducts(products);
 
-            try {
-                const data = await fetchProducts();
-                setProducts(data);
-                setFilteredProducts(data);
-
-                // Extract unique categories
-                const uniqueCategories = Array.from(new Set(data.map((p) => p.category)));
-                setCategories(uniqueCategories);
-            } catch (err) {
-                setError(err.message);
-            } finally {
-                setLoading(false);
-            }
+            const uniqueCategories = Array.from(new Set(products.map((p) => p.category)));
+            setCategories(uniqueCategories);
         };
 
         loadProducts();
-    }, [setProducts, setCategories, setFilteredProducts]);
+    }, [setProducts, setFilteredProducts, setCategories]);
 
-    return (
-        <div>
-            {loading && <p>Loading products...</p>}
-            {error && <p>Error fetching products: {error}</p>}
-        </div>
-    );
+    return null;
 }

@@ -1,8 +1,8 @@
 "use client";
 
-import React, {createContext, useState, useContext, useEffect} from "react";
-import {useNotificationContext} from "@/app/context/NotificationContext";
-import ProductFetcher, {fetchProducts} from "@/app/backend/ProductFetcherComponent";
+import React, { createContext, useState, useContext, useEffect } from "react";
+import { useNotificationContext } from "@/app/context/NotificationContext";
+import { fetchProducts } from "@/app/backend/ProductFetcherComponent";
 
 const ProductContext = createContext(null);
 
@@ -13,14 +13,12 @@ export const ProductProvider = ({ children }) => {
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [priceRange, setPriceRange] = useState({ min: 0, max: Infinity });
     const [selectedProduct, setSelectedProduct] = useState(null);
-    const [isFormVisible, setIsFormVisible] = useState(false); // Form visibility state
-    const [isEditFormVisible, setIsEditFormVisible] = useState(false); // Form visibility state
-    const [minPrice, setMinPrice] = useState("");
-    const [maxPrice, setMaxPrice] = useState("");
+    const [isFormVisible, setIsFormVisible] = useState(false);
+    const [isEditFormVisible, setIsEditFormVisible] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1)
     const [handleAddProduct, setHandleAddProduct] = useState(false);
     const [handleRemoveProduct, setHandleRemoveProduct] = useState(false);
     const [handleEditProduct, setHandleEditProduct] = useState(false);
-    const [currentPage, setCurrentPage] = useState(1)
     const { addNotification } = useNotificationContext();
 
     const handlePriceFilter = ({ min = 0, max = Infinity }) => {
@@ -53,10 +51,8 @@ export const ProductProvider = ({ children }) => {
     };
 
     const handleEditClick = (product) => {
-        console.log("edit");
         setSelectedProduct(product);
         setIsEditFormVisible(true);
-        console.log(isEditFormVisible);
     };
 
     const handlePriceChange = (e, type) => {
@@ -76,7 +72,6 @@ export const ProductProvider = ({ children }) => {
     };
 
     useEffect(() => {
-        console.log("FILTERED")
         const filtered = products.filter(product => {
             const matchesCategory = selectedCategory ? product.category === selectedCategory : true;
             const matchesPrice =
@@ -88,6 +83,24 @@ export const ProductProvider = ({ children }) => {
 
         setFilteredProducts(filtered);
     }, [products, selectedCategory, priceRange]);
+
+    useEffect(() => {
+        const loadProducts = async () => {
+            const storedProducts = localStorage.getItem("products");
+            if (storedProducts) {
+                setProducts(JSON.parse(storedProducts));
+            } else {
+                const fetchedProducts = await fetchProducts();
+                setProducts(fetchedProducts);
+                localStorage.setItem("products", JSON.stringify(fetchedProducts));
+            }
+        };
+        loadProducts();
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem("products", JSON.stringify(products));
+    }, [products]);
 
     const value = {
         products,
@@ -120,7 +133,7 @@ export const ProductProvider = ({ children }) => {
         handleCloseInfo,
         handleEditClick,
         handlePriceChange,
-        handleCategoryChange
+        handleCategoryChange,
     };
 
     return (

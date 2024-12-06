@@ -1,53 +1,28 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { useProductContext } from "../context/ProductContext";
-import { useNotificationContext } from "../context/NotificationContext";
-import {fetchProducts} from "@/app/backend/ProductFetcherComponent";
+import { useProductContext } from "@/app/context/ProductContext";
+import { useNotificationContext } from "@/app/context/NotificationContext";
 
 function ProductAdderComponent() {
-    const { setHandleAddProduct, setProducts, setFilteredProducts, setCategories } = useProductContext();
+    const { setHandleAddProduct, setProducts } = useProductContext();
     const { addNotification } = useNotificationContext();
 
     const addProduct = async (newProduct) => {
-        // Replace 'amount' with 'quantity' while keeping the rest of the object intact
-        const { amount, ...rest } = newProduct;
-        const transformedProduct = {
-            ...rest,
-            quantity: amount,
-            dateAdded: new Date().toISOString().split("T")[0], // Format: YYYY-MM-DD
-        };
+        const storedProducts = JSON.parse(localStorage.getItem("products")) || [];
+        const updatedProducts = [...storedProducts, newProduct];
+        localStorage.setItem("products", JSON.stringify(updatedProducts));
+        setProducts(updatedProducts);
 
         try {
-            const response = await fetch("http://localhost:3030/products", {
+            await fetch("http://localhost:3030/products", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(transformedProduct),
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(newProduct),
             });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
-            const result = await response.json();
-            console.log("Product successfully added:", result);
-
-            // Add notification
-            addNotification(`Product "${transformedProduct.name}" added successfully!`);
-
-            // Fetch updated products
-            const products = await fetchProducts(); // Fetch the latest products
-            setProducts(products);
-            setFilteredProducts(products);
-
-            // Update categories
-            const uniqueCategories = Array.from(new Set(products.map((p) => p.category)));
-            setCategories(uniqueCategories);
+            addNotification(`Product "${newProduct.name}" added successfully!`);
         } catch (error) {
-            console.error("Error adding product:", error.message);
-            addNotification(`Failed to add product: ${error.message}`);
+            addNotification(`Failed to sync product with API: ${error.message}`);
         }
     };
 
@@ -55,7 +30,7 @@ function ProductAdderComponent() {
         setHandleAddProduct(() => addProduct);
     }, [setHandleAddProduct]);
 
-    return <></>;
+    return null;
 }
 
 export default ProductAdderComponent;
