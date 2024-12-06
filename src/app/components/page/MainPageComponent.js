@@ -8,6 +8,7 @@ import ProductInfoComponent from "@/app/components/form/ProductInfoComponent";
 import ProductFormComponent from "@/app/components/form/ProductFormComponent";
 import ProductEditComponent from "@/app/components/form/ProductEditComponent";
 import {useProductContext} from "@/app/context/ProductContext";
+import PaginationComponent from "@/app/components/page/PaginationComponent";
 
 export default function MainPageComponent() {
     const {
@@ -21,7 +22,7 @@ export default function MainPageComponent() {
     return (
         <>
             <TopMenuComponent/>
-            <ProductGrid/>
+            <PaginationComponent itemsPerPage={10}/>
             {isFormVisible && (
                 <ProductFormComponent
                     onClose={() => setIsFormVisible(false)}

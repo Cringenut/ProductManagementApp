@@ -20,6 +20,7 @@ export const ProductProvider = ({ children }) => {
     const [handleAddProduct, setHandleAddProduct] = useState(false);
     const [handleRemoveProduct, setHandleRemoveProduct] = useState(false);
     const [handleEditProduct, setHandleEditProduct] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1)
     const { addNotification } = useNotificationContext();
 
     const handlePriceFilter = ({ min = 0, max = Infinity }) => {
@@ -111,6 +112,8 @@ export const ProductProvider = ({ children }) => {
         setHandleRemoveProduct,
         handleEditProduct,
         setHandleEditProduct,
+        currentPage,
+        setCurrentPage,
         handlePriceFilter,
         handleCategoryFilter,
         handleInfoClick,

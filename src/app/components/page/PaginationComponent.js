@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
-import '../../../styles/ProuductGrid.css';
+import {useProductContext} from "@/app/context/ProductContext";
+import ProductGrid from "@/app/components/page/ProductGridComponent";
+import '../../../styles/Paginator.css';
 
-const PaginationComponent = ({ data, itemsPerPage }) => {
-    const [currentPage, setCurrentPage] = useState(1);
 
-    const totalPages = Math.ceil(data.length / itemsPerPage);
+
+const PaginationComponent = ({ itemsPerPage }) => {
+    const {
+        products,
+        currentPage,
+        setCurrentPage
+    } = useProductContext();
+
+    const totalPages = Math.ceil(products.length / itemsPerPage);
 
     const handleClick = (page) => {
         if (page >= 1 && page <= totalPages) {
@@ -13,21 +21,14 @@ const PaginationComponent = ({ data, itemsPerPage }) => {
     };
 
     const startIdx = (currentPage - 1) * itemsPerPage;
-    const currentItems = data.slice(startIdx, startIdx + itemsPerPage);
+    const currentProducts = products.slice(startIdx, startIdx + itemsPerPage);
 
     return (
         <div>
-            <div className="product-grid">
-                {currentItems.map((item, index) => (
-                    <div key={index} className="product-card">
-                        <h3>{item.name}</h3>
-                        <p>{item.description}</p>
-                    </div>
-                ))}
-            </div>
-            <div className="pagination-container">
+            <ProductGrid currentProducts={currentProducts}/>
+            <div className="paginator">
                 <button
-                    className="pagination-button"
+                    className="paginator-button"
                     onClick={() => handleClick(currentPage - 1)}
                     disabled={currentPage === 1}
                 >
@@ -36,7 +37,7 @@ const PaginationComponent = ({ data, itemsPerPage }) => {
                 {[...Array(totalPages).keys()].map((_, index) => (
                     <button
                         key={index}
-                        className={`pagination-button ${
+                        className={`paginator-button ${
                             currentPage === index + 1 ? 'active' : ''
                         }`}
                         onClick={() => handleClick(index + 1)}
@@ -45,7 +46,7 @@ const PaginationComponent = ({ data, itemsPerPage }) => {
                     </button>
                 ))}
                 <button
-                    className="pagination-button"
+                    className="paginator-button"
                     onClick={() => handleClick(currentPage + 1)}
                     disabled={currentPage === totalPages}
                 >
