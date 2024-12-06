@@ -9,7 +9,7 @@ function ProductAdderComponent() {
     const { setHandleAddProduct, setProducts, setFilteredProducts, setCategories } = useProductContext();
     const { addNotification } = useNotificationContext();
 
-    const handleAddProduct = async (newProduct) => {
+    const addProduct = async (newProduct) => {
         // Replace 'amount' with 'quantity' while keeping the rest of the object intact
         const { amount, ...rest } = newProduct;
         const transformedProduct = {
@@ -52,7 +52,7 @@ function ProductAdderComponent() {
     };
 
     useEffect(() => {
-        setHandleAddProduct(() => handleAddProduct);
+        setHandleAddProduct(() => addProduct);
     }, [setHandleAddProduct]);
 
     return <></>;

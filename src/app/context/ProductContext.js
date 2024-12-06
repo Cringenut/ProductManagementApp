@@ -18,6 +18,7 @@ export const ProductProvider = ({ children }) => {
     const [minPrice, setMinPrice] = useState("");
     const [maxPrice, setMaxPrice] = useState("");
     const [handleAddProduct, setHandleAddProduct] = useState(false);
+    const [handleRemoveProduct, setHandleRemoveProduct] = useState(false);
     const { addNotification } = useNotificationContext();
 
     const handlePriceFilter = ({ min = 0, max = Infinity }) => {
@@ -39,14 +40,6 @@ export const ProductProvider = ({ children }) => {
             product.unitPrice <= max
         );
         setFilteredProducts(filtered);
-    };
-
-    const handleRemoveProduct = (productId) => {
-        const updatedProducts = products.filter(product => product.id !== productId);
-        setProducts(updatedProducts);
-
-        const updatedFilteredProducts = filteredProducts.filter(product => product.id !== productId);
-        setFilteredProducts(updatedFilteredProducts);
     };
 
     const handleInfoClick = (product) => {
@@ -129,9 +122,10 @@ export const ProductProvider = ({ children }) => {
         setIsEditFormVisible,
         handleAddProduct,
         setHandleAddProduct,
+        handleRemoveProduct,
+        setHandleRemoveProduct,
         handlePriceFilter,
         handleCategoryFilter,
-        handleRemoveProduct,
         handleInfoClick,
         handleCloseInfo,
         handleEditProduct,

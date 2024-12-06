@@ -6,6 +6,7 @@ import NotificationSystem from "@/app/components/NotificationSystem";
 import {NotificationProvider} from "@/app/context/NotificationContext";
 import ProductFetcher from "@/app/backend/ProductFetcherComponent";
 import ProductAdderComponent from "@/app/backend/ProductAdderComponent";
+import ProductRemoverComponent from "@/app/backend/ProductRemoverComponent";
 
 export default async function Home() {
     return (
@@ -17,6 +18,7 @@ export default async function Home() {
                 <MainPageComponent/>
                 <ProductFetcher/>
                 <ProductAdderComponent/>
+                <ProductRemoverComponent/>
             </ProductProvider>
         </NotificationProvider>
         </body>
