@@ -14,7 +14,7 @@ export default function MainPageComponent() {
         isFormVisible,
         isEditFormVisible,
         setIsFormVisible,
-
+        setIsEditFormVisible
     } = useProductContext();
 
 
@@ -25,6 +25,11 @@ export default function MainPageComponent() {
             {isFormVisible && (
                 <ProductFormComponent
                     onClose={() => setIsFormVisible(false)}
+                />
+            )}
+            {isEditFormVisible && (
+                <ProductEditComponent
+                    onClose={() => setIsEditFormVisible(false)}
                 />
             )}
         </>
