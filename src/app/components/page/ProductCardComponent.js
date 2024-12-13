@@ -3,9 +3,13 @@ import '../../../styles/ProductCard.css';
 import { useProductContext } from "@/app/context/ProductContext";
 
 const ProductCard = memo(({ product }) => {
-    const { handleRemoveProduct, handleInfoClick, handleEditClick } = useProductContext();
+    const { dispatch, handleInfoClick, handleEditClick } = useProductContext();
 
-    console.log(`Rendering ProductCard for product ID: ${product.id}`);
+    const handleRemoveProduct = (productId) => {
+            dispatch({
+            type: "REMOVE_PRODUCT", payload: productId
+        });
+    };
 
     return (
         <div className="product-card">

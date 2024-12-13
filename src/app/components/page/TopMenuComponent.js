@@ -1,17 +1,32 @@
-import React, { useState } from 'react';
-import {useProductContext} from "@/app/context/ProductContext";
+import React from 'react';
+import { useProductContext } from "@/app/context/ProductContext";
+import "@/styles/TopMenu.css"
 
-// TopMenuComponent.js
 const TopMenuComponent = () => {
     const {
-        handlePriceChange,
-        handleCategoryChange,
-        setIsFormVisible,
+        dispatch,
+        priceRange,
         selectedCategory,
         categories,
-        minPrice,
-        maxPrice,
+        handleCategoryFilter,
+        handlePriceFilter
     } = useProductContext();
+
+    const handlePriceChange = (e, type) => {
+        const value = parseFloat(e.target.value) || 0;
+        const updatedRange = {
+            ...priceRange,
+            [type]: value,
+        };
+        dispatch({ type: "SET_PRICE_RANGE", payload: updatedRange });
+        handlePriceFilter(updatedRange);
+    };
+
+    const handleCategoryChange = (e) => {
+        const category = e.target.value;
+        dispatch({ type: "SET_SELECTED_CATEGORY", payload: category });
+        handleCategoryFilter(category); // Call this to apply the filter.
+    };
 
     return (
         <div className="top-menu">
@@ -19,14 +34,14 @@ const TopMenuComponent = () => {
             <input
                 type="number"
                 placeholder="Min"
-                value={minPrice}
+                value={priceRange.min}
                 onChange={(e) => handlePriceChange(e, 'min')}
             />
             <span> - </span>
             <input
                 type="number"
                 placeholder="Max"
-                value={maxPrice}
+                value={priceRange.max}
                 onChange={(e) => handlePriceChange(e, 'max')}
             />
 
@@ -40,44 +55,9 @@ const TopMenuComponent = () => {
                 ))}
             </select>
 
-            <button className="add-button" onClick={() => setIsFormVisible(true)}>Add</button>
-
-            <style jsx>{`
-                .top-menu {
-                    display: flex;
-                    align-items: center;
-                    gap: 8px;
-                    padding: 10px;
-                    background-color: #f7f7f7;
-                    border-bottom: 1px solid #ddd;
-                }
-
-                label {
-                    font-weight: bold;
-                }
-
-                input, select {
-                    padding: 5px;
-                    border: 1px solid #ccc;
-                    border-radius: 4px;
-                }
-
-                .add-button {
-                    background-color: #4285f4;
-                    color: white;
-                    border: none;
-                    padding: 10px 20px;
-                    font-size: 14px;
-                    font-weight: bold;
-                    border-radius: 4px;
-                    cursor: pointer;
-                    margin-left: auto;
-                }
-
-                .add-button:hover {
-                    background-color: #357ae8;
-                }
-            `}</style>
+            <button className="add-button" onClick={() => dispatch({ type: "SET_FORM_VISIBILITY", payload: true })}>
+                Add
+            </button>
         </div>
     );
 };

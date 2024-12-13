@@ -9,14 +9,14 @@ const PaginationComponent = ({ itemsPerPage }) => {
     const {
         products,
         currentPage,
-        setCurrentPage
+        dispatch
     } = useProductContext();
 
     const totalPages = Math.ceil(products.length / itemsPerPage);
 
     const handleClick = (page) => {
         if (page >= 1 && page <= totalPages) {
-            setCurrentPage(page);
+            dispatch({ type: "SET_CURRENT_PAGE", payload: page });
         }
     };
 

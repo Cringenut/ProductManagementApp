@@ -1,15 +1,15 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useCallback } from "react";
 import { useProductContext } from "@/app/context/ProductContext";
 import { useNotificationContext } from "@/app/context/NotificationContext";
 
 function ProductAdderComponent() {
+    const { dispatch } = useProductContext();
     const { addNotification } = useNotificationContext();
-    const { setProducts } = useProductContext();
 
     const handleAddProduct = useCallback(async (newProduct) => {
-        setProducts((prevProducts) => [...prevProducts, newProduct]);
+        dispatch({ type: "ADD_PRODUCT", payload: newProduct });
         addNotification("Product added successfully!");
 
         try {
@@ -27,7 +27,7 @@ function ProductAdderComponent() {
         } catch (error) {
             addNotification(`Failed to sync product with API: ${error.message}`);
         }
-    }, [addNotification, setProducts]);
+    }, [dispatch, addNotification]);
 
     return null;
 }
