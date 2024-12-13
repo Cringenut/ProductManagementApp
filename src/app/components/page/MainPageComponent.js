@@ -44,7 +44,7 @@ export default function MainPageComponent() {
     }, [addNotification, setProducts]);
 
     return (
-        <>
+        <div className="main-page">
             <TopMenuComponent/>
             <PaginationComponent itemsPerPage={10}/>
             {isFormVisible && (
@@ -61,6 +61,6 @@ export default function MainPageComponent() {
             <ProductFetcher/>
             <ProductRemoverComponent/>
             <ProductPutterComponent/>
-        </>
+        </div>
     );
 }

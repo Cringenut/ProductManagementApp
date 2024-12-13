@@ -1,8 +1,12 @@
 .paginator {
+    position: absolute; /* Position relative to the container */
+    top: 94%; /* Vertically center */
+    left: 50%; /* Horizontally center */
+    transform: translate(-50%, -50%); /* Adjust for true centering */
+    margin-bottom: 40px; /* Space at the bottom */
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
     gap: 8px;
     font-family: Arial, sans-serif;
 }
