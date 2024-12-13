@@ -20,7 +20,7 @@ function ProductFormComponent({ onClose, handleAddProduct }) {
             .min(3, "Category must be at least 3 characters")
             .oneOf(categories, "Category must be one of the predefined categories")
             .required("Category is required"),
-        amount: yup
+        quantity: yup
             .number()
             .positive("Amount must be greater than 0")
             .integer("Amount must be an integer")
@@ -42,9 +42,9 @@ function ProductFormComponent({ onClose, handleAddProduct }) {
                 <Formik
                     initialValues={{
                         name: "Product",
-                        category: "Tools",
-                        amount: 1,
-                        unitPrice: 10.0,
+                        category: "Industrial",
+                        quantity: 1,
+                        unitPrice: 15.0,
                         supplier: "Supplier",
                     }}
                     validationSchema={schema} // Use the schema here
@@ -67,7 +67,7 @@ function ProductFormComponent({ onClose, handleAddProduct }) {
                             <Field type="text" name="category" placeholder="Enter category" />
                             {errors.category && touched.category && <div>{errors.category}</div>}
 
-                            <Field type="number" name="amount" placeholder="Enter amount" />
+                            <Field type="number" name="quantity" placeholder="Enter quantity" />
                             {errors.quantity && touched.quantity && <div>{errors.quantity}</div>}
 
                             <Field

@@ -102,7 +102,12 @@ export const ProductProvider = ({ children }) => {
     }, [products]);
 
     const totalPrice = useMemo(() => {
-        return products.reduce((sum, product) => sum + product.quantity * product.unitPrice, 0);
+        console.log("Products for totalPrice calculation:", products);
+        return products.reduce((sum, product) => {
+            const quantity = parseFloat(product.quantity) || 0;
+            const unitPrice = parseFloat(product.unitPrice) || 0;
+            return sum + quantity * unitPrice;
+        }, 0);
     }, [products]);
 
     const value = {

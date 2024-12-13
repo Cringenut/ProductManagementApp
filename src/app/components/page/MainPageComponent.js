@@ -11,6 +11,7 @@ import {useNotificationContext} from "@/app/context/NotificationContext";
 import ProductFetcher from "@/app/backend/ProductFetcherComponent";
 import ProductRemoverComponent from "@/app/backend/ProductRemoverComponent";
 import ProductPutterComponent from "@/app/backend/ProductPutterComponent";
+import TotalPriceComponent from "@/app/components/page/TotalPriceComponent";
 
 export default function MainPageComponent() {
     const { addNotification } = useNotificationContext();
@@ -61,6 +62,7 @@ export default function MainPageComponent() {
             <ProductFetcher/>
             <ProductRemoverComponent/>
             <ProductPutterComponent/>
+            <TotalPriceComponent/>
         </div>
     );
 }
