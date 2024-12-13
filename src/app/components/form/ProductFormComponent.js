@@ -4,9 +4,8 @@ import {Field, Form, Formik} from "formik";
 import "../../../styles/ProductForm.css"
 import {useProductContext} from "@/app/context/ProductContext";
 
-function ProductFormComponent({ onClose }) {
+function ProductFormComponent({ onClose, handleAddProduct }) {
     const {
-        handleAddProduct,
         categories
     } = useProductContext();
 
@@ -42,11 +41,11 @@ function ProductFormComponent({ onClose }) {
                 <h2>Add Product</h2>
                 <Formik
                     initialValues={{
-                        name: "",
-                        category: "",
+                        name: "Product",
+                        category: "Tools",
                         amount: 1,
-                        unitPrice: 0.01,
-                        supplier: "",
+                        unitPrice: 10.0,
+                        supplier: "Supplier",
                     }}
                     validationSchema={schema} // Use the schema here
                     onSubmit={(formData, { resetForm }) => {

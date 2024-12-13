@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useState, useContext, useEffect } from "react";
+import React, {createContext, useState, useContext, useEffect, useMemo} from "react";
 import { useNotificationContext } from "@/app/context/NotificationContext";
 import { fetchProducts } from "@/app/backend/ProductFetcherComponent";
 
@@ -16,7 +16,6 @@ export const ProductProvider = ({ children }) => {
     const [isFormVisible, setIsFormVisible] = useState(false);
     const [isEditFormVisible, setIsEditFormVisible] = useState(false);
     const [currentPage, setCurrentPage] = useState(1)
-    const [handleAddProduct, setHandleAddProduct] = useState(false);
     const [handleRemoveProduct, setHandleRemoveProduct] = useState(false);
     const [handleEditProduct, setHandleEditProduct] = useState(false);
     const { addNotification } = useNotificationContext();
@@ -102,6 +101,10 @@ export const ProductProvider = ({ children }) => {
         localStorage.setItem("products", JSON.stringify(products));
     }, [products]);
 
+    const totalPrice = useMemo(() => {
+        return products.reduce((sum, product) => sum + product.quantity * product.unitPrice, 0);
+    }, [products]);
+
     const value = {
         products,
         setProducts,
@@ -119,14 +122,13 @@ export const ProductProvider = ({ children }) => {
         setIsFormVisible,
         isEditFormVisible,
         setIsEditFormVisible,
-        handleAddProduct,
-        setHandleAddProduct,
         handleRemoveProduct,
         setHandleRemoveProduct,
         handleEditProduct,
         setHandleEditProduct,
         currentPage,
         setCurrentPage,
+        totalPrice,
         handlePriceFilter,
         handleCategoryFilter,
         handleInfoClick,

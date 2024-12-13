@@ -17,10 +17,6 @@ export default async function Home() {
             <ProductProvider>
                 <NotificationSystem/>
                 <MainPageComponent/>
-                <ProductFetcher/>
-                <ProductAdderComponent/>
-                <ProductRemoverComponent/>
-                <ProductPutterComponent/>
             </ProductProvider>
         </NotificationProvider>
         </body>
