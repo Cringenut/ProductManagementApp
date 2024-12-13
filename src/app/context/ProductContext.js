@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useReducer, useContext, useEffect } from "react";
+import React, {createContext, useReducer, useContext, useEffect, useMemo} from "react";
 
 const ProductContext = createContext(null);
 
@@ -26,7 +26,6 @@ function productReducer(state, action) {
         case "SET_FILTERED_PRODUCTS":
             return { ...state, filteredProducts: action.payload };
         case "SET_SELECTED_CATEGORY":
-            console.log("new selected category, ", action.payload)
             return { ...state, selectedCategory: action.payload };
         case "SET_PRICE_RANGE":
             return { ...state, priceRange: action.payload };
@@ -99,14 +98,17 @@ export const ProductProvider = ({ children }) => {
         loadProducts();
     }, []);
 
-    useEffect(() => {
-        const totalPrice = state.products.reduce((sum, product) => {
+    const totalPrice = useMemo(() => {
+        return state.products.reduce((sum, product) => {
             const quantity = parseFloat(product.quantity) || 0;
             const unitPrice = parseFloat(product.unitPrice) || 0;
             return sum + quantity * unitPrice;
         }, 0);
-        dispatch({ type: "SET_TOTAL_PRICE", payload: totalPrice });
     }, [state.products]);
+
+    useEffect(() => {
+        dispatch({ type: "SET_TOTAL_PRICE", payload: totalPrice });
+    }, [totalPrice, dispatch]);
 
     const value = {
         ...state,
