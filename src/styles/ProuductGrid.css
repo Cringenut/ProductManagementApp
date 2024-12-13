@@ -1,8 +1,10 @@
 .product-grid {
-    padding: 16px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 16px;
-    overflow-x: auto; /* Enable horizontal scrolling */
-    white-space: nowrap; /* Prevent wrapping of rows */
+    padding: 16px;
+    max-height: 100vh; /* Set a max height to make it scrollable */
+    overflow-y: auto; /* Enable vertical scrolling */
 }
 
 /* PriceBrackets.css */
